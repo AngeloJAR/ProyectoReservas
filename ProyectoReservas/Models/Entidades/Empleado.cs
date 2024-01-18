@@ -11,7 +11,7 @@ namespace ProyectoReservas.Models.Entidades
         public int idempleado { get; set; }
         //muesta un mensaje en el cual nos pide q llenemos el campo
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public string nombreE { get; set; }
-        public string cargo { get; set; }
+        public string nombre_empleado{ get; set; }
+        public string cargo_empleado { get; set; }
     }
 }

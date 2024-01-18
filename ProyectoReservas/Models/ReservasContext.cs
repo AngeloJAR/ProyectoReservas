@@ -14,10 +14,10 @@ namespace ProyectoReservas.Models
 
         }
 
-        public DbSet<Cliente> clientes { get; set; }
-        public DbSet<Empleado> empleados { get; set; }
-        public DbSet<Mesa> mesas { get; set; }
-        public DbSet<Reserva> reservas { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Empleado> Empleados { get; set; }
+        public DbSet<Mesa> Mesas { get; set; }
+        public DbSet<Reserva> Reservas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -15,14 +15,14 @@ namespace ProyectoReservas.Models.Entidades
         [Column(TypeName = "decimal(18,2)")]
         [DisplayFormat(DataFormatString = "[0:c2]")]
         public decimal precio { get; set; }
-        public DateTime FechaHoraReserva { get; set; }
-        public DateTime FechaHoraLlegada { get; set; }
-        public int clienteid { get; set; }
-        public Cliente idcliente { get; set; }
-        public int mesaid { get; set; }
-        public Mesa idmesa { get; set; }
-        public int empleadoid { get; set; }
-        public Empleado idempleado { get; set; }
+        public DateTime fecha_hora_reserva { get; set; }
+        public DateTime fecha_hora_llegada { get; set; }
+        public int cliente_id { get; set; }
+        public Cliente id_cliente { get; set; }
+        public int mesa_id { get; set; }
+        public Mesa id_mesa { get; set; }
+        public int empleado_id { get; set; }
+        public Empleado id_empleado { get; set; }
 
     }
 }
