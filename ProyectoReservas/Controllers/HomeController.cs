@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoReservas.Models;
 using System.Diagnostics;
 
 namespace ProyectoReservas.Controllers
 {
+   
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -12,7 +14,7 @@ namespace ProyectoReservas.Controllers
         {
             _logger = logger;
         }
-
+        [Authorize(Roles = "PersonalAdministrativo, Cliente")]
         public IActionResult Index()
         {
             return View();

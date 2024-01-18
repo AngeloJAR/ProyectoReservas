@@ -1,20 +1,41 @@
 using ProyectoReservas.Models;
 using Microsoft.EntityFrameworkCore;
-var builder = WebApplication.CreateBuilder(args);
+using ProyectoReservas.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 
+var builder = WebApplication.CreateBuilder(args);
+// Add services to the container.
 builder.Services.AddControllersWithViews();
-//se utiliza para la configuracion de la conexion de la base de datos
-//ventaja se puede con cualquie base de datos
 builder.Services.AddDbContext<ReservasContext>(o =>
 {
     o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-/*
-builder.Services.AddScoped<IServicioLista, Servicio_Lista>();
-builder.Services.AddScoped<IServicioAutores, Servicio_Autores>();
-builder.Services.AddScoped<IServiciosCategorias, Servicios_Categorias>();
-builder.Services.AddScoped<IServicioUsuario, Servicio_usuario>();*/
+builder.Services.AddScoped<IServicioLogueo, ServicioLogueo>();
+
+
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+             .AddCookie(options =>
+             {
+                 options.LoginPath = "/Login/IniciarSesion";
+                 options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                 options.AccessDeniedPath = "/Home/Privacy";
+             });
+
+
+
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add(
+        new ResponseCacheAttribute
+        {
+            NoStore = true,
+            Location = ResponseCacheLocation.None,
+        }
+       );
+});
 
 var app = builder.Build();
 
@@ -30,11 +51,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+     pattern: "{controller=PaginaInicio}/{action=IndexInicio}/{id?}");
 
 app.Run();

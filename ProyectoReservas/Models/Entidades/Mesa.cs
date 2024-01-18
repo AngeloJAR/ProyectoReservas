@@ -8,11 +8,12 @@ namespace ProyectoReservas.Models.Entidades
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int idmesa { get; set; }
+        public int IdMesa { get; set; }
         //muesta un mensaje en el cual nos pide q llenemos el campo
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public int numero_mesa { get; set; }
-        public int capacidad { get; set; }
+        public int NumeroMesa { get; set; }
+        public int Capacidad { get; set; }
+        public string? URLFotoMesa { get; set; }
 
     }
 }
