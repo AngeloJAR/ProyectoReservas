@@ -17,7 +17,7 @@ namespace ProyectoReservas.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.14")
+                .HasAnnotation("ProductVersion", "8.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -35,6 +35,9 @@ namespace ProyectoReservas.Migrations
 
                     b.Property<int>("NumeroMesa")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("Precio")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("URLFotoMesa")
                         .HasColumnType("nvarchar(max)");
@@ -99,6 +102,9 @@ namespace ProyectoReservas.Migrations
 
                     b.Property<string>("Telefono")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("URLFotoRestaurante")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdRestaurante");
@@ -202,13 +208,13 @@ namespace ProyectoReservas.Migrations
 
             modelBuilder.Entity("ProyectoReservas.Models.Entidades.Restaurante", b =>
                 {
-                    b.HasOne("ProyectoReservas.Models.Entidades.Mesa", "IdMesa")
+                    b.HasOne("ProyectoReservas.Models.Entidades.Mesa", "Mesa")
                         .WithMany()
                         .HasForeignKey("MesaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("IdMesa");
+                    b.Navigation("Mesa");
                 });
 
             modelBuilder.Entity("ProyectoReservas.Models.Entidades.RolUsuario", b =>

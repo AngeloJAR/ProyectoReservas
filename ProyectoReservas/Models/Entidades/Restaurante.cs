@@ -13,12 +13,13 @@ namespace ProyectoReservas.Models.Entidades
         public string NombreRestaurante { get; set; }
         public string Direccion { get; set; }
         public string Telefono { get; set; }
-        public Mesa IdMesa { get; set; }
+        public string? URLFotoRestaurante { get; set; }
+        public Mesa Mesa { get; set; }
 
-        [Range(1, int.MaxValue, ErrorMessage = "Debes de seleccionar una mesa.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una mesa.")]
         public int MesaId { get; set; }
 
         [NotMapped]
-        public IEnumerable<SelectListItem> Mesa { get; set; }
+        public IEnumerable<SelectListItem> Mesas { get; set; }
     }
 }

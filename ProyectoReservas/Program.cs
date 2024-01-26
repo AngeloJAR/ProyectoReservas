@@ -13,6 +13,8 @@ builder.Services.AddDbContext<ReservasContext>(o =>
 });
 
 builder.Services.AddScoped<IServicioLogueo, ServicioLogueo>();
+builder.Services.AddScoped<IServicioLista, ServicioLista>();
+builder.Services.AddScoped<IServicioImagen, ServicioImagen>();
 
 
 

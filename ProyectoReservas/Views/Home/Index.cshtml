@@ -70,15 +70,25 @@
                     <li class="active">
                         <a href="@Url.Action("IndexInicio","PaginaInicio")">Inicio</a>
                     </li>
+                    @if (User.IsInRole("Cliente"))
+                    {
+                        <li>
+                            <a href="about.html">Restaurantes</a>
+                        </li>
+                    }
+
+                    @if (User.IsInRole("PersonalAdministrativo"))
+                                        {
                     <li>
-                        <a href="about.html">About</a>
+                            <a href="@Url.Action("Crear","Restaurantes")">Restaurantes</a>
                     </li>
                     <li>
-                        <a href="recipe.html">Recipe</a>
+                            <a href="@Url.Action("Crear","Mesas")">Mesas</a>
                     </li>
                     <li>
-                        <a href="blog.html">Blog</a>
+                        <a href="blog.html">Clientes</a>
                     </li>
+                                        }
                     <li>            
                         <a class="button" asp-area="" asp-controller="Login" asp-action="Salir">Cerrar Sesión</a>               
                     </li>

@@ -19,6 +19,7 @@ namespace ProyectoReservas.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NumeroMesa = table.Column<int>(type: "int", nullable: false),
                     Capacidad = table.Column<int>(type: "int", nullable: false),
+                    Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     URLFotoMesa = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -63,6 +64,7 @@ namespace ProyectoReservas.Migrations
                     NombreRestaurante = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Direccion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Telefono = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    URLFotoRestaurante = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MesaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

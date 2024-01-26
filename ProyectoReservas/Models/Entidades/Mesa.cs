@@ -13,6 +13,12 @@ namespace ProyectoReservas.Models.Entidades
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int NumeroMesa { get; set; }
         public int Capacidad { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public decimal Precio { get; set; }
+
+        [Display(Name = "Imagen")]
         public string? URLFotoMesa { get; set; }
 
     }
