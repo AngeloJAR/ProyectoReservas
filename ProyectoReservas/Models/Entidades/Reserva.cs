@@ -11,11 +11,6 @@ namespace ProyectoReservas.Models.Entidades
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdReserva { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Column(TypeName = "decimal(18,2)")]
-        [DisplayFormat(DataFormatString = "[0:c2]")]
-        public decimal Precio { get; set; }
-
         public DateTime FechaReserva { get; set; }
 
         // Usuario

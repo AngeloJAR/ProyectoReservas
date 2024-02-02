@@ -70,12 +70,6 @@
                     <li class="active">
                         <a href="@Url.Action("IndexInicio","PaginaInicio")">Inicio</a>
                     </li>
-                    @if (User.IsInRole("Cliente"))
-                    {
-                        <li>
-                            <a href="about.html">Restaurantes</a>
-                        </li>
-                    }
 
                     @if (User.IsInRole("PersonalAdministrativo"))
                                         {
@@ -116,11 +110,6 @@
                                         <li class="dinone">Contactos : <img style="margin-right: 15px;margin-left: 15px;" src="../images/phone_icon.png" alt="#"><a href="#">0993872668</a></li>
                                         <li class="dinone"><img style="margin-right: 15px;" src="../images/mail_icon.png" alt="#"><a href="#">reservas2024@gmail.com</a></li>
                                         <li class="dinone"><img style="margin-right: 15px;height: 21px;position: relative;top: -2px;" src="../images/location_icon.png" alt="#"><a href="#">Quito-Ecuador</a></li>
-
-                                        @if (User.IsInRole("PersonalAdministrativo"))
-                                        {
-                                            <li class="button_user"><a class="button" href="../Login/IniciarSesion">Iniciar Sesión</a><a class="button" href="/Login/Registro">Registro</a></li>
-                                        }
 
                                         <li>
                                             <button type="button" id="sidebarCollapse">

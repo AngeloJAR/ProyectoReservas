@@ -14,7 +14,6 @@ namespace ProyectoReservas.Models.Entidades
         public string Direccion { get; set; }
         public string Telefono { get; set; }
         public string? URLFotoRestaurante { get; set; }
-        public Mesa Mesa { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una mesa.")]
         public int MesaId { get; set; }

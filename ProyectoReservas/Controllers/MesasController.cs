@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProyectoReservas.Models.Entidades;
+using Microsoft.EntityFrameworkCore;
 using ProyectoReservas.Models;
 using ProyectoReservas.Services;
-using Microsoft.EntityFrameworkCore;
 
 namespace ProyectoReservas.Controllers
 {
@@ -11,7 +10,7 @@ namespace ProyectoReservas.Controllers
         private readonly ReservasContext _context;
         private readonly IServicioImagen _servicioImagen;
 
-        public MesasController(ReservasContext context, IServicioImagen servicioImagen)
+        public MesasController(ReservasContext context, IServicioImagen servicioImagen, IServicioLista servicioLista)
         {
             _context = context;
             _servicioImagen = servicioImagen;
@@ -19,28 +18,25 @@ namespace ProyectoReservas.Controllers
 
         public async Task<IActionResult> ListadoMesas()
         {
-            return View(await _context.Mesas.ToListAsync());
+            return View(await _context.Mesas
         }
 
-        public IActionResult Crear()
+        public async Task<IActionResult> Crear()
         {
-            return View();
+
         }
 
         [HttpPost]
-        public async Task<IActionResult> Crear(Mesa mesa, IFormFile Imagen)
+        public async Task<IActionResult> Crear(Mesa mesa, IFormFile Imagen, IServicioLista _servicioLista)
         {
             Stream image = Imagen.OpenReadStream();
             string urlImagen = await _servicioImagen.SubirImagen(image, Imagen.FileName);
             mesa.URLFotoMesa = urlImagen;
 
-            if (ModelState.IsValid)
-            {
                 _context.Add(mesa);
                 await _context.SaveChangesAsync();
                 TempData["AlertMessage"] = "Mesa creada exitosamente";
                 return RedirectToAction("ListadoMesas");
-
             }
             else
             {
@@ -48,8 +44,8 @@ namespace ProyectoReservas.Controllers
             }
 
 
-
-            return View();
+            mesa.Restaurantes = await _servicioLista.GetListaRestaurantes();
+            return View(mesa); ;
         }
 
         public async Task<IActionResult> Editar(int? id)
@@ -68,28 +64,22 @@ namespace ProyectoReservas.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Editar(int id, Mesa mesa)
+        public async Task<IActionResult> Editar(Mesa mesa, IFormFile Imagen)
         {
-            if (id != mesa.IdMesa)
-            {
-                return NotFound();
-            }
 
-            if (ModelState.IsValid)
+            if (Imagen != null && !ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(mesa);
+                    var mesasExistentes = await _context.Mesas.FindAsync(mesa.IdMesa);
                     await _context.SaveChangesAsync();
-                    TempData["AlertMessage"] = "mesa actualizado " +
-                        "exitosamente!!!";
+                    TempData["AlertMessage"] = "Mesa actualizada exitosamente";
                     return RedirectToAction("ListadoMesas");
                 }
                 catch (Exception ex)
                 {
-
-                    ModelState.AddModelError(ex.Message, "Ocurrio un error " +
-                        "al actualizar");
+                    ModelState.AddModelError(string.Empty, $"Ha ocurrido un error al actualizar el restaurante: {ex.Message}");
+                }
                 }
             }
             return View(mesa);

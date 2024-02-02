@@ -24,12 +24,6 @@ namespace ProyectoReservas.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<Reserva>()
-            .HasOne(r => r.Usuario)
-            .WithMany()
-            .HasForeignKey(r => r.UsuarioId)
-            .OnDelete(DeleteBehavior.Restrict); // Puedes cambiar a .OnDelete(DeleteBehavior.SetNull) si prefieres
-
             // Configuración de la relación con Mesa
             modelBuilder.Entity<Reserva>()
                 .HasOne(r => r.Mesa)

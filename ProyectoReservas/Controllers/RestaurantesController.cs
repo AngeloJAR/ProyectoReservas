@@ -39,11 +39,9 @@ namespace ProyectoReservas.Controllers
         [HttpPost]
         public async Task<IActionResult> Crear(Restaurante restaurante, IFormFile Imagen)
         {
-            // Validación y asignación de la imagen
             if (Imagen != null && !ModelState.IsValid)
             {
                 Stream image = Imagen.OpenReadStream();
-                string urlImagen = await _servicioImagen.SubirImagen(image, Imagen.Name);
 
                 restaurante.URLFotoRestaurante = urlImagen;
 
@@ -56,8 +54,6 @@ namespace ProyectoReservas.Controllers
             {
                 ModelState.AddModelError(string.Empty, "Ha ocurrido un error");
             }
-
-            restaurante.Mesas = await _servicioLista.GetListaMesas();
             return View(restaurante);
         }
 
@@ -75,8 +71,6 @@ namespace ProyectoReservas.Controllers
             {
                 return NotFound();
             }
-
-            restaurante.Mesas = await _servicioLista.GetListaMesas();
             return View(restaurante);
         }
 
@@ -96,9 +90,7 @@ namespace ProyectoReservas.Controllers
                         restauranteExistente.Direccion = restaurante.Direccion;
                         restauranteExistente.Telefono = restaurante.Telefono;
                         restauranteExistente.URLFotoRestaurante = urlImagen;
-                        restauranteExistente.Mesa = await _context.Mesas.FindAsync(restaurante.MesaId);
 
-                    _context.Update(restauranteExistente);
                     await _context.SaveChangesAsync();
                     TempData["AlertMessage"] = "Restaurante actualizado exitosamente";
                     return RedirectToAction("ListadoRestaurantes");
@@ -112,8 +104,6 @@ namespace ProyectoReservas.Controllers
             {
                 ModelState.AddModelError(string.Empty, "El modelo no es válido");
             }
-
-            restaurante.Mesas = await _servicioLista.GetListaMesas();
             return View(restaurante);
         }
 
